@@ -1,8 +1,10 @@
 <?php
 
+require_once "vendor/autoload.php";
 require_once 'Route.php';
 
-includeFilesFromFolder('controller/');
+includeFilesFromFolder('controller/web/');
+includeFilesFromFolder('controller/api/');
 includeFilesFromFolder('helpers/');
 includeFilesFromFolder('model/');
 

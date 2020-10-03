@@ -1,7 +1,6 @@
 <?php
 
 namespace Helpers;
-use \Controllers\BaseController;
 
 class Response
 {

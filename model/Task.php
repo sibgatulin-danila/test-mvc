@@ -2,30 +2,19 @@
 
 namespace Models;
 
+use Helpers\DB;
+
 class Task extends BaseModel
 {
+    protected $table = 'task';
+
     public $email = '';
     public $username = '';
     public $description = '';
 
     public function loadData()
     {
-        return [
-            [
-                'email' => 'test@mail.ru',
-                'username' => 'user1',
-                'description' => 'desc1',
-            ],
-            [
-                'email' => 'test1@mail.ru',
-                'username' => 'user1',
-                'description' => 'desc1',
-            ],
-            [
-                'email' => 'test1@mail.ru',
-                'username' => 'user1',
-                'description' => 'desc1',
-            ],
-        ];
+        $obDb = DB::init();
+        return $obDb->executeQuery("SELECT * FROM `{$this->table}`");
     }
 }

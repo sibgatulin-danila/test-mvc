@@ -19,7 +19,7 @@ class Route
             $sActionName = $arRequestUri[2];
         }
         $sControllerName = ucfirst($sControllerName) . 'Controller';
-        $sControllerFilePath = 'controller/' . $sControllerName . '.php';
+        $sControllerFilePath = 'controller/web/' . $sControllerName . '.php';
 
         if (file_exists($sControllerFilePath)) {
             include_once $sControllerFilePath;

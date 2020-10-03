@@ -1,0 +1,6 @@
+{
+    "name": "root/www",
+    "require": {
+        "vlucas/phpdotenv": "^5.2.0"
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\BaseController;
+use Controllers\Web\BaseController;
 use Models\Task;
 
 class TaskController extends BaseController
@@ -14,5 +14,10 @@ class TaskController extends BaseController
             'tasks' => $arTasks,
         ];
         $this->render('task.index', $arResult);
+    }
+
+    public function create()
+    {
+
     }
 }

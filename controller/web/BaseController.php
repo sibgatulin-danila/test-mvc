@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace Controllers\Web;
 
 use Helpers\Response;
 
@@ -15,5 +15,13 @@ class BaseController
         } else {
             Response::error404();
         }
+    }
+
+    public function validate($arDataToValidate)
+    {
+
+//        foreach ($arDataToValidate as $sKey => $value) {
+//
+//        }
     }
 }
