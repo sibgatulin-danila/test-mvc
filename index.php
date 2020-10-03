@@ -5,6 +5,7 @@ require_once 'autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-Route::init();
+var_dump($_POST);
+App\Helper\Route::init();
 
 

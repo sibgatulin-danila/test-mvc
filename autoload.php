@@ -1,16 +1,17 @@
 <?php
 
 require_once "vendor/autoload.php";
-require_once 'Route.php';
 
-includeFilesFromFolder('controller/web/');
-includeFilesFromFolder('controller/api/');
-includeFilesFromFolder('helpers/');
-includeFilesFromFolder('model/');
+includeFilesFromFolder('app/controller/');
+includeFilesFromFolder('app/controller/web/');
+includeFilesFromFolder('app/controller/api/');
+includeFilesFromFolder('app/helper/');
+includeFilesFromFolder('app/model/');
+includeFilesFromFolder('app/middleware/');
 
 function includeFilesFromFolder($sFolder)
 {
-    foreach (glob("{$sFolder}*") as $filename)
+    foreach (glob("{$sFolder}*.php") as $filename)
     {
         include_once $filename;
     }

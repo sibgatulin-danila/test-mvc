@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace App\Helper;
 
 class Response
 {
@@ -14,7 +14,6 @@ class Response
         $sHost = "http://{$_SERVER['HTTP_HOST']}/";
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
-        include "view/layout/header.php";
-        include "view/error/404.php";
+        include "view/parts/error/404.php";
     }
 }

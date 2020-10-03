@@ -1,5 +1,5 @@
 .docker/*
 .idea/*
 /vendor/
-
+node_modules
 .env
