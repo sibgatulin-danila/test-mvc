@@ -17,11 +17,20 @@ class Task extends BaseModel
     public $description = '';
     public $status_id = '';
 
-    public function loadData()
+    public function loadData($nPage = 1)
     {
         $obDb = DB::init();
-        return $obDb->executeQuery(
-            "SELECT `id`, `email`, `username`, `description`, `status_id` FROM `{$this->table}`"
+        $nOffset = ($nPage - 1) * 3;
+        $rs = $obDb->executeQuery(
+            "SELECT `id`, `email`, `username`, `description`, `status_id` "
+            . "FROM `{$this->table}` ORDER BY `id` DESC "
+            . "LIMIT {$nOffset}, 3"
         );
+
+        $arResult = [];
+        while ($row = $rs->fetch_assoc()) {
+            $arResult[] = $row;
+        }
+        return $arResult;
     }
 }

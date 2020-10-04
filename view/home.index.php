@@ -32,7 +32,7 @@
             <h2>Tasks list</h2>
         </div>
         <div class="card-body">
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush tasks-list">
                 <?foreach ($arViewData['tasks'] as $arTask):?>
                     <li class="list-group-item" data-id="<?= $arTask['id'] ?>">
                         <form class="/">
@@ -64,28 +64,28 @@
                         </form>
                     </li>
                 <?endforeach;?>
-                <? if (isset($arViewData['is_paginate'])
-                    && isset($arViewData['page_count'])
-                    && $arViewData['page_count'] > 1
-                    && $arViewData['is_paginate'] == true): ?>
-                    <nav aria-label="...">
-                        <ul class="pagination pagination-lg mt-3">
-                            <? for ($i = 1; $i <= $arViewData['page_count']; $i = $i + 1): ?>
-                                <? if ($arViewData['current_page'] == $i): ?>
-                                    <li class="page-item active" aria-current="page">
+            </ul>
+            <? if (isset($arViewData['is_paginate'])
+                && isset($arViewData['page_count'])
+                && $arViewData['page_count'] > 1
+                && $arViewData['is_paginate'] == true): ?>
+                <nav aria-label="...">
+                    <ul class="pagination pagination-lg mt-3">
+                        <? for ($i = 1; $i <= $arViewData['page_count']; $i = $i + 1): ?>
+                            <? if ($arViewData['current_page'] == $i): ?>
+                                <li class="page-item active" aria-current="page" data-page="<?= $i ?>">
                                         <span class="page-link">
                                             <?= $i ?>
                                             <span class="sr-only">(current)</span>
                                         </span>
-                                    </li>
-                                <? else: ?>
-                                    <li class="page-item"><a class="page-link" href="#"><?= $i ?></a></li>
-                                <? endif; ?>
-                            <? endfor; ?>
-                        </ul>
-                    </nav>
-                <? endif; ?>
-            </ul>
+                                </li>
+                            <? else: ?>
+                                <li class="page-item js-pagination-page" data-page="<?= $i ?>"><a class="page-link" href="#"><?= $i ?></a></li>
+                            <? endif; ?>
+                        <? endfor; ?>
+                    </ul>
+                </nav>
+            <? endif; ?>
         </div>
     </div>
 </div>

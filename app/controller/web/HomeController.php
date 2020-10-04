@@ -8,27 +8,34 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $arResult = $this->validate([
-            'page' => [
-                'optional',
-                'numeric'
-            ],
-        ], $_GET);
+        $arRequestParams = $this->getRequestData();
 
-        if (!$arResult['success']) {
+        $arValidation = $this->validate([
+            'page' => ['optional', 'numeric'],
+        ], $arRequestParams);
+
+        if (!$arValidation['success']) {
             Response::error404();
             return;
         }
 
-        $obTask = new Task;
-        $arTasks = $obTask->loadData();
+        $nCurrentPage = isset($arRequestParams['page'])
+            ? $arRequestParams['page']
+            : 1;
 
         $arResult = [
-            'tasks' => $arTasks,
-            'is_admin' => false,
-
-            'is_paginate' => true,
+            'current_page' => $nCurrentPage,
         ];
+
+        $obTask = new Task;
+        $arTasks = $obTask->loadData($nCurrentPage);
+        $nTaskCount = $obTask->count();
+
+        $arResult['tasks'] = $arTasks;
+        $arResult['is_admin'] = false;
+        $arResult['is_paginate'] = true;
+        $arResult['page_count'] = ceil($nTaskCount / 3);
+
         $this->render('home.index', $arResult);
     }
 }

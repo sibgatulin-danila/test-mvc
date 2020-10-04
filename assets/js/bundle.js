@@ -94,7 +94,43 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n$('.js-form-create-task').on('submit', function (e) {\n  e.preventDefault();\n  const formData = $(this).serializeArray().reduce((reducer, item) => {\n    reducer[item.name] = item.value;\n    return reducer;\n  }, {});\n  axios__WEBPACK_IMPORTED_MODULE_0___default()({\n    method: 'POST',\n    url: 'api/task/create',\n    data: formData,\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  });\n});\n\n//# sourceURL=webpack:///./js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _templates_TaskItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./templates/TaskItem */ \"./js/templates/TaskItem.js\");\n/* harmony import */ var _templates_PaginateCurrentPageItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./templates/PaginateCurrentPageItem */ \"./js/templates/PaginateCurrentPageItem.js\");\n/* harmony import */ var _templates_PaginatePageItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./templates/PaginatePageItem */ \"./js/templates/PaginatePageItem.js\");\n\n\n\n\n$('.js-form-create-task').on('submit', function (e) {\n  e.preventDefault();\n  const formData = $(this).serializeArray().reduce((reducer, item) => {\n    reducer[item.name] = item.value;\n    return reducer;\n  }, {});\n  axios__WEBPACK_IMPORTED_MODULE_0___default()({\n    method: 'POST',\n    url: 'api/task/create',\n    data: formData,\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  }).then(function (response) {\n    return response.data;\n  }).then(function (response) {\n    if (response.success) {\n      setPage(1).then(() => {\n        $('.js-form-create-task').find('input, textarea').each(function () {\n          $(this).val('');\n        });\n      });\n    }\n  });\n});\n$('.js-pagination-page').on('click', handleClickPage);\n\nfunction handleClickPage(e) {\n  e.preventDefault();\n  let $this = $(this);\n  let page = $this.data('page');\n  setPage(page);\n}\n\nconst renderPagination = (pagesCount, currentPage) => {\n  let pagination = $('.pagination');\n  pagination.html('');\n\n  for (let i = 1; i <= pagesCount; i++) {\n    if (i === +currentPage) {\n      pagination.append(Object(_templates_PaginateCurrentPageItem__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({\n        page: i\n      }));\n    } else {\n      pagination.append(Object(_templates_PaginatePageItem__WEBPACK_IMPORTED_MODULE_3__[\"default\"])({\n        page: i\n      }));\n    }\n  }\n\n  $('.js-pagination-page').on('click', handleClickPage);\n};\n\nconst renderTasks = tasks => {\n  let tasksList = $('.tasks-list');\n  tasksList.html('');\n\n  if (tasks.length > 0) {\n    tasksList.append(tasks.map(task => Object(_templates_TaskItem__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(task)).join(''));\n  }\n};\n\nconst setPage = page => {\n  return axios__WEBPACK_IMPORTED_MODULE_0___default()({\n    url: 'api/task',\n    method: 'GET',\n    params: {\n      page\n    }\n  }).then(response => {\n    return response.data;\n  }).then(response => {\n    const {\n      page_count,\n      current_page,\n      items\n    } = response;\n    renderPagination(page_count, current_page);\n    renderTasks(items);\n  });\n};\n\n//# sourceURL=webpack:///./js/index.js?");
+
+/***/ }),
+
+/***/ "./js/templates/PaginateCurrentPageItem.js":
+/*!*************************************************!*\
+  !*** ./js/templates/PaginateCurrentPageItem.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst PaginateCurrentPageItem = props => {\n  const {\n    page\n  } = props;\n  return `\n        <li class=\"page-item active\" aria-current=\"page\" data-page=\"${page}\">\n            <span class=\"page-link\">\n                ${page}\n                <span class=\"sr-only\">(current)</span>\n            </span>\n        </li>\n    `;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PaginateCurrentPageItem);\n\n//# sourceURL=webpack:///./js/templates/PaginateCurrentPageItem.js?");
+
+/***/ }),
+
+/***/ "./js/templates/PaginatePageItem.js":
+/*!******************************************!*\
+  !*** ./js/templates/PaginatePageItem.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst PaginateCurrentPageItem = props => {\n  const {\n    page\n  } = props;\n  return `\n        <li class=\"page-item js-pagination-page\" data-page=\"${page}\">\n            <a class=\"page-link\" href=\"#\">\n                ${page}\n            </a>\n        </li>\n    `;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PaginateCurrentPageItem);\n\n//# sourceURL=webpack:///./js/templates/PaginatePageItem.js?");
+
+/***/ }),
+
+/***/ "./js/templates/TaskItem.js":
+/*!**********************************!*\
+  !*** ./js/templates/TaskItem.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst TaskItem = props => {\n  const {\n    id,\n    email,\n    description,\n    username,\n    status_id\n  } = props;\n  return `\n        <li class=\"list-group-item\" data-id=\"${id}\">\n            <form class=\"/\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <div class=\"form-group\">\n                            <label>Email</label>\n                            <input disabled value=\"${email}\" type=\"email\" name=\"email\" class=\"form-control\">\n                        </div>\n                    </div>\n                    <div class=\"col-6\">\n                        <div class=\"form-group\">\n                            <label>Имя пользователя</label>\n                            <input disabled value=\"${username}\" name=\"username\" class=\"form-control\">\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label>Описание задачи</label>\n                    <textarea disabled class=\"form-control\">${description}</textarea>\n                </div>\n            </form>\n        </li>\n    `;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (TaskItem);\n\n//# sourceURL=webpack:///./js/templates/TaskItem.js?");
 
 /***/ }),
 

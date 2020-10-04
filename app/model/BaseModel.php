@@ -23,8 +23,12 @@ class BaseModel
             $sAction = 'update';
         }
         $sQuery = $this->generateQuery($sAction);
-        var_dump($sQuery);
-        return $obDb->executeQuery($sQuery);
+        $obDb->executeQuery($sQuery);
+
+        if ($sAction == 'create') {
+            $rs = $obDb->executeQuery("SELECT MAX(id) as id FROM `{$this->table}`");
+            $this->id = $rs->fetch_assoc()['id'];
+        }
     }
 
     private function generateQuery($sAction)
@@ -40,7 +44,8 @@ class BaseModel
                     if ($key == 'id' || $key == 'table') continue;
                     if (!empty($value)) {
                         $arFieldsToInsert[] = "{$key}";
-                        $arValueToInsert[] = "'{$value}'";
+                        $sReplacedString = str_replace("'", "''", $value);
+                        $arValueToInsert[] = "'{$sReplacedString}'";
                     }
                 }
                 $sQuery .= implode(', ', $arFieldsToInsert) . ') ';
@@ -67,5 +72,16 @@ class BaseModel
         }
 
         return $sQuery;
+    }
+
+    public function count()
+    {
+        $obDb = DB::init();
+        $rs = $obDb->executeQuery("SELECT COUNT(id) as count FROM {$this->table}");
+        $nCount = 0;
+        while($row = $rs->fetch_assoc()) {
+            $nCount = $row['count'];
+        }
+        return $nCount;
     }
 }
