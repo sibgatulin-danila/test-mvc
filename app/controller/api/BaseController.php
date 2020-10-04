@@ -15,7 +15,8 @@ class BaseController extends Controller
                 $arData = &$_GET;
                 break;
             case 'POST':
-                $arData = &$_POST;
+                $arPostData = file_get_contents('php://input');
+                $arData = json_decode($arPostData, true);;
                 break;
         }
 

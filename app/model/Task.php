@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Model;
 
 use App\Helper\DB;
 

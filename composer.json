@@ -2,6 +2,7 @@
     "name": "root/www",
     "require": {
         "vlucas/phpdotenv": "^5.2.0",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "ext-json": "*"
     }
 }

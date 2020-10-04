@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n$('.js-form-create-task').on('submit', function (e) {\n  e.preventDefault();\n  const formData = $(this).serializeArray().reduce((reducer, item) => {\n    reducer[item.name] = item.value;\n    return reducer;\n  }, {});\n  console.log(formData);\n  axios__WEBPACK_IMPORTED_MODULE_0___default()({\n    method: 'POST',\n    url: '/api/task/create',\n    data: formData\n  });\n});\n\n//# sourceURL=webpack:///./js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n$('.js-form-create-task').on('submit', function (e) {\n  e.preventDefault();\n  const formData = $(this).serializeArray().reduce((reducer, item) => {\n    reducer[item.name] = item.value;\n    return reducer;\n  }, {});\n  axios__WEBPACK_IMPORTED_MODULE_0___default()({\n    method: 'POST',\n    url: 'api/task/create',\n    data: formData,\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  });\n});\n\n//# sourceURL=webpack:///./js/index.js?");
 
 /***/ }),
 

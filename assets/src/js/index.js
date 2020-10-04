@@ -7,10 +7,12 @@ $('.js-form-create-task').on('submit', function (e) {
         return reducer;
     }, {});
 
-    console.log(formData);
     axios({
         method: 'POST',
-        url: '/api/task/create',
+        url: 'api/task/create',
         data: formData,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
 });

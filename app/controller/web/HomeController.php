@@ -1,7 +1,7 @@
 <?php
 
 use App\Controller\Web\BaseController;
-use Models\Task;
+use App\Model\Task;
 use App\Helper\Response;
 
 class HomeController extends BaseController
